@@ -1,3 +1,3 @@
 from django.contrib import admin
+from .models import Application, ApplicationEvent
 
-# Register your models here.
