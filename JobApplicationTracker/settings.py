@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -107,6 +106,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Specify the custom user model
+AUTH_USER_MODEL = 'users.CustomUserModel'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
