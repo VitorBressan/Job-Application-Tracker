@@ -7,7 +7,7 @@ class CustomUserModel(AbstractUser):
     email = models.EmailField(verbose_name="Email", unique=True, blank=False, null=False)
 
     # Custom username field ( Made it not unique )
-    username = models.CharField(verbose_name="Username", max_length=100,blank=False, null=False)
+    username = models.CharField(verbose_name="Username", max_length=100, blank=False, null=False)
 
     # Make email as the user identifier ( Django default is "username")
     USERNAME_FIELD = "email"
