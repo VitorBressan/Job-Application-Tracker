@@ -1,7 +1,12 @@
 {% extends "users/base.html" %}
+
 {% block title %} Welcome Page {% endblock %}
+
+{% block header %} Welcome! {% endblock %}
 {% block content %}
+
     <a href="{% url 'register' %}">REGISTER</a>
     <a href="{% url 'login' %}">LOGIN</a>
     <a href="{% url 'logout' %}">LOGOUT</a>
+
 {% endblock %}   

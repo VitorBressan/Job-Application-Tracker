@@ -1,9 +1,15 @@
 {% extends "users/base.html" %}
-{% block title %}Login Page{% endblock %}
+
+{% block title %}Log In{% endblock %}
+
+{% block header %} LOG IN {% endblock %}
 {% block content %}
+
+    {% load crispy_forms_tags %}
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy }}
         <input type="submit" value="login">
     </form>
+
 {% endblock %}

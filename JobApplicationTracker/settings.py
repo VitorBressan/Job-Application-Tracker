@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'job_applications',
-    'bootstrap5'
+    'bootstrap5',
+    'crispy_forms',
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,9 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'JobApplicationTracker.wsgi.application'
 
@@ -108,6 +113,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Specify the custom user model
 AUTH_USER_MODEL = 'users.CustomUserModel'
+
+
+# Specify the login page
+LOGIN_URL ='login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/

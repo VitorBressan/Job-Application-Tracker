@@ -1,7 +1,8 @@
 asgiref==3.11.1
 beautifulsoup4==4.14.3
-Django==4.2.29
+Django==6.0.3
 django-bootstrap-v5==1.0.11
+django-crispy-forms==2.6
 psycopg==3.3.3
 psycopg-binary==3.3.3
 python-dotenv==1.2.2
