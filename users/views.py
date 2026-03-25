@@ -21,3 +21,6 @@ class RegisterView(CreateView):
 class UserLoginView(LoginView):
     template_name = "users/login.html"
     next_page = reverse_lazy('home')
+
+class LogoutView():
+    pass
