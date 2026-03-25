@@ -2,14 +2,14 @@
 
 {% block title %}Log In{% endblock %}
 
-{% block header %} LOG IN {% endblock %}
+{% block header %} Login {% endblock %}
 {% block content %}
 
     {% load crispy_forms_tags %}
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="login">
+        <input type="submit" class="btn btn-primary" value="Log In">
     </form>
 
 {% endblock %}

@@ -2,14 +2,14 @@
 
 {%block title%}Sign In{% endblock %}
 
-{% block header %} SIGN IN {% endblock %}
+{% block header %} Sign-Up {% endblock %}
 {% block content %}
 
   {% load crispy_forms_tags %}
-  <form class="mx-1 mx-md-4" action="{% url 'register' %}" method="POST">
+  <form class="mx-1 mx-md-4" action="{% url 'sign-up' %}" method="POST">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Register">
+    <input type="submit" value="Sign Up">
   </form>
 
 {% endblock %}
