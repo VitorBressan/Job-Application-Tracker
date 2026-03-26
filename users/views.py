@@ -12,7 +12,6 @@ def welcome_view(request):
 
 User = get_user_model()
 class RegisterView(CreateView):
-    model = User
     form_class = UserRegisterForm
     template_name = "users/sign_up.html"
     success_url = reverse_lazy('login')
@@ -21,6 +20,3 @@ class RegisterView(CreateView):
 class UserLoginView(LoginView):
     template_name = "users/login.html"
     next_page = reverse_lazy('home')
-
-class LogoutView(): 
-    pass

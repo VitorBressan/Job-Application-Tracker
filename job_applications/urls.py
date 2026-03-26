@@ -1,7 +1,7 @@
-from django.contrib import admin
 from django.urls import path
-from .views import home
+from .views import home, AddApplicationView
 
 urlpatterns = [
-    path('', home, name='home')
+    path('', home, name='home'),
+    path('add-application', AddApplicationView.as_view(), name='add_application')
 ]
