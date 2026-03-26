@@ -4,9 +4,9 @@
 
 {% block header %} Welcome! {% endblock %}
 {% block content %}
-
-    <a href="{% url 'sign-up' %}">SIGN-UP</a>
-    <a href="{% url 'login' %}">LOGIN</a>
-    <a href="{% url 'logout' %}">LOGOUT</a>
-
+    <div class="d-grid gap-2">
+        <a href="{% url 'sign-up' %}" class="btn btn-primary">SIGN-UP</a>
+        <a href="{% url 'login' %}" class="btn btn-primary">LOGIN</a>
+        <a href="{% url 'logout' %}" class="btn btn-primary">LOGOUT</a>
+    </div>
 {% endblock %}   

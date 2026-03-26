@@ -22,5 +22,5 @@ class UserLoginView(LoginView):
     template_name = "users/login.html"
     next_page = reverse_lazy('home')
 
-class LogoutView():
+class LogoutView(): 
     pass
