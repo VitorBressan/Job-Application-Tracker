@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 CONTRACT_TYPE_CHOICES = [
@@ -43,7 +44,7 @@ class Application(models.Model):
         null=True, blank=True
     )
     status = models.CharField(verbose_name="Status", max_length=20, choices=STATUS_CHOICES, default="APPLIED")
-    date_applied = models.DateField(verbose_name="Date Applied")
+    date_applied = models.DateField(verbose_name="Date Applied", default=timezone.now)
     notes = models.TextField(verbose_name="Notes", null=True, blank=True)
     salary_min = models.IntegerField(verbose_name="Minimum Salary", null=True, blank=True)
     salary_max = models.IntegerField(verbose_name="Maximum Salary", null=True, blank=True)
