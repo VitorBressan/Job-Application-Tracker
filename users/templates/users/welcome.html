@@ -5,8 +5,14 @@
 {% block header %} Welcome! {% endblock %}
 {% block content %}
     <div class="d-grid gap-2">
+        {% if user.is_authenticated %}
+        <form class="d-grid" method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">LOGOUT</button>
+        </form>
+        {% else %}
         <a href="{% url 'sign-up' %}" class="btn btn-primary">SIGN-UP</a>
         <a href="{% url 'login' %}" class="btn btn-primary">LOGIN</a>
-        <a href="{% url 'logout' %}" class="btn btn-primary">LOGOUT</a>
+        {% endif %}
     </div>
 {% endblock %}   
