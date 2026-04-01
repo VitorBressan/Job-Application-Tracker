@@ -9,7 +9,11 @@ from .forms import ApplicationRegisterForm
 
 @login_required
 def home(request):
-    return render(request, "job_applications/home.html")
+    applications = Application.objects.filter(user = request.user)
+    data = {
+        "applications_list": applications
+    }
+    return render(request, "job_applications/home.html", context=data)
 
 class AddApplicationView(CreateView):
     form_class = ApplicationRegisterForm

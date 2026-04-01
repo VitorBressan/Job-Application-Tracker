@@ -10,6 +10,7 @@
     {% bootstrap_javascript %}
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
@@ -33,6 +34,19 @@
         </div>
     </div>
     </nav>
+
     <a href="{% url 'add_application' %}">Add Application</a>
+    {% for application in applications_list %}
+    <div>
+        {{ application.company_name }}
+        {{ application.role }}
+        {{ application.status}}
+        {{ application.date_applied }}
+        {{ application.salary_min }}
+        {{ application.salary_max }}
+        {{ application.work_mode }}
+        {{ application.notes }}
+    </div>
+    {% endfor %}
 </body>
 </html>
