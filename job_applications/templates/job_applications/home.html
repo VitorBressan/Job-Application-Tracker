@@ -36,16 +36,18 @@
     </nav>
 
     <a href="{% url 'add_application' %}">Add Application</a>
+
     {% for application in applications_list %}
-    <div>
-        {{ application.company_name }}
-        {{ application.role }}
-        {{ application.status}}
-        {{ application.date_applied }}
-        {{ application.salary_min }}
-        {{ application.salary_max }}
-        {{ application.work_mode }}
-        {{ application.notes }}
+    <div class="d-flex justify-content-center mb-1">
+        <a href="{% url 'home' %}" class="btn btn-primary w-75">
+            <div>{{ application.company_name }}</div>
+            <div>
+                {{ application.role }} /
+                {{ application.status}} /
+                {{ application.date_applied }}
+            </div>
+            <div>{{ application.notes }}</div>
+        </a>
     </div>
     {% endfor %}
 </body>
