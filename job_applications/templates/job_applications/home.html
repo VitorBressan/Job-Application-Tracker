@@ -35,11 +35,11 @@
     </div>
     </nav>
 
-    <a href="{% url 'add_application' %}">Add Application</a>
+    <a class="d-flex justify-content-center mb-1" href="{% url 'add_application' %}">Add Application</a>
 
     {% for application in applications_list %}
     <div class="d-flex justify-content-center mb-1">
-        <a href="{% url 'home' %}" class="btn btn-primary w-75">
+        <a href="{% url 'application' application.id %}" class="btn btn-primary w-75">
             <div>{{ application.company_name }}</div>
             <div>
                 {{ application.role }} /

@@ -1,6 +1,6 @@
 from django.forms import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from .models import *
@@ -25,3 +25,8 @@ class AddApplicationView(CreateView):
         application_object.user = self.request.user
         application_object.save()
         return super().form_valid(form)
+    
+def application_details(request, id):
+    application = get_object_or_404(Application, id=id)
+    data = {"application": application}
+    return render(request, "job_applications/application.html", context=data)
