@@ -6,22 +6,83 @@
     <title>Document</title>
 </head>
 <body>
-    Company Name: {{ application.company_name }}
-    Role: {{ application.role }}
+    <h1>Company Name: {{ application.company_name }}</h1>
+    <h2>Role: {{ application.role }}</h2>
     Status: {{ application.status }}
     Date Applied: {{ application.date_applied }}
     <br>
-    Salary Min: {{ application.salary_min }}
-    Salary Max: {{ application.salary_max }}
-    Salary Period: {{ application.salary_period }}
-    Currency: {{ application.currency }}
-    Work Mode: {{ application.work_mode }}
-    Contract Type: {{ application.contract_type }}
+    Salary Min: 
+    {% if application.salary_min %}
+        {{ application.salary_min }}
+    {% else %}
+        ......
+    {% endif %}
+
+    Salary Max: 
+    {% if application.salary_max %}
+        {{ application.salary_max }}
+    {% else %}
+        ......
+    {% endif %}
+
+    Salary Period: 
+    {% if application.salary_period %}
+        {{ application.salary_period }}
+    {% else %}
+        ......
+    {% endif %}
+
+    Currency: 
+    {% if application.currency %}
+        {{ application.currency }}
+    {% else %}
+        ......
+    {% endif %}
+
+    Work Mode: 
+    {% if application.work_mode %}
+        {{ application.work_mode }}
+    {% else %}
+        ......
+    {% endif %}
+
+    Contract Type: 
+    {% if application.contract_type %}
+        {{ application.contract_type }}
+    {% else %}
+        ......
+    {% endif %}
+
     <br>
-    Vacancy Link: {{ application.vacancy_link }}
-    Company Address: {{ application.company_address }}
-    Notes: {{ application.notes }}
+    Vacancy Link: 
+    {% if application.company_address %}
+        {{ application.vacancy_link }}
+    {% else %}
+        ......
+    {% endif %}
+    
+    Company Address: 
+    {% if application.company_address %}
+        {{ application.company_address }}
+    {% else %}
+        ......
+    {% endif %}
+    Notes: 
+    {% if application.notes %}
+        {{ application.notes }}
+    {% else %}
+        ......
+    {% endif %}
     <br>
-    Vacancy Description: {{ application.vacancy_description }}
+    Vacancy Description: 
+    {% if application.vacancy_description %}
+        {{ application.vacancy_description }}
+    {% else %}
+        ......
+    {% endif %}
+    <br>
+    ----------------------------------------------------------------------------------------
+    <br>
+    <a href="{% url 'application' application.id %}">Add Event</a>
 </body>
 </html>
