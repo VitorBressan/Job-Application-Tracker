@@ -1,5 +1,5 @@
-from django.forms import ModelForm
-from .models import Application
+from django.forms import ModelForm, DateInput
+from .models import *
 
 class ApplicationRegisterForm(ModelForm):
     class Meta:
@@ -13,4 +13,12 @@ class ApplicationRegisterForm(ModelForm):
             'salary_period': 'Optional',
             'currency': 'Optional',
             'work_mode': 'Optional'
+        }
+
+class AddEventForm(ModelForm):
+    class Meta:
+        model = ApplicationEvent
+        fields = ["event_type", "notes", "event_date"]
+        widgets = {
+            'event_date': DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }

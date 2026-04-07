@@ -67,7 +67,7 @@ EVENT_TYPE_CHOICES = [
 class ApplicationEvent(models.Model):
     event_type = models.CharField(verbose_name="Event Type", max_length=30, choices=EVENT_TYPE_CHOICES)
     notes = models.TextField(verbose_name="Notes", null=True, blank=True)
-    event_date = models.DateField("Event Date")
+    event_date = models.DateField("Event Date", default=timezone.now)
 
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name="events")
 
