@@ -29,7 +29,7 @@ class AddApplicationView(CreateView):
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
     event_form = AddEventForm()
-    events = ApplicationEvent.objects.filter(application_id = application.pk)
+    events = ApplicationEvent.objects.filter(application_id = application.pk).order_by("-event_date", "-id")
     
     data = {
         "application": application,
