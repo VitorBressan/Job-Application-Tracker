@@ -24,7 +24,7 @@ class AddApplicationView(CreateView):
         application_object = form.save(commit=False)
         application_object.user = self.request.user
         application_object.save()
-        return super().form_valid(form)
+        return super().form_valid(form) 
     
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
