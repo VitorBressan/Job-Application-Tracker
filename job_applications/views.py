@@ -25,7 +25,7 @@ class AddApplicationView(CreateView):
         application_object.user = self.request.user
         application_object.save()
         return super().form_valid(form) 
-    
+
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
     event_form = AddEventForm()
@@ -46,8 +46,12 @@ def add_event(request, application_id: int):
             event = form.save(commit=False)
             event.application = application
             event.save()
-    return redirect('application', application_id=application.pk)
+    return redirect('application', application_id=application_id)
 
-def delete_application(request, application_id):
+def delete_application(request, application_id: int):
     Application.objects.get(id=application_id).delete()
     return redirect('home')
+
+def delete_application_event(request, application_id: int, event_id: int):
+    ApplicationEvent.objects.get(id=event_id).delete()
+    return redirect('application', application_id=application_id)
