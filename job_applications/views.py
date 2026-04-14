@@ -47,3 +47,7 @@ def add_event(request, application_id: int):
             event.application = application
             event.save()
     return redirect('application', application_id=application.pk)
+
+def delete_application(request, application_id):
+    Application.objects.get(id=application_id).delete()
+    return redirect('home')
