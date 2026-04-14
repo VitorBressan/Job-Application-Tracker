@@ -117,10 +117,13 @@
       </div>
     </div>
     {% for event in events %}
+    <div class="d-flex">
         <div>
             {{ event.event_type }} {{ event.event_date }} <br>
             {{ event.notes }}
         </div>
+        <a class="btn btn-danger">Delete</a>
+    </div>
     {% endfor %}
 </body>
 </html>
