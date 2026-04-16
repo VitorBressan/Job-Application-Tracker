@@ -49,7 +49,8 @@
             <div>{{ application.notes }}</div>
         </a>
         <div class="d-flex flex-column">
-            <a href="{% url 'delete_application' application.id %}" class="btn btn-primary">Delete</a>
+            <a href="{% url 'delete_application' application.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'delete_application' application.id %}" class="btn btn-primary">Edit</a>
         </div>
     </div>
     {% endfor %}
