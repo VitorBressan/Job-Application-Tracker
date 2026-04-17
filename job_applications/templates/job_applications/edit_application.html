@@ -10,10 +10,11 @@
     {% bootstrap_javascript %}
 </head>
 <body>
-    <form method="POST" action="{% url 'edit_application' application.id %}">
+    <form method="POST" action="{% url 'edit_application' application.id %}?next={{ request.GET.next }}">
         {% csrf_token %}
         {{ form }}
         <button type="submit" class="btn btn-success">Confirm</button>
+        <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
     </form>
 </body>
 </html>

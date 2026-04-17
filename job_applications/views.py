@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView
 from .models import *
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .forms import *
 
 @login_required
@@ -34,7 +34,12 @@ def delete_application(request, application_id: int):
 class EditApplicationView(UpdateView):
     form_class = ApplicationRegisterForm
     template_name = 'job_applications/edit_application.html'
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        next_url= self.request.GET.get('next')
+        if next_url:
+            return next_url
+        return reverse('home')
 
     def get_object(self):
         return get_object_or_404(Application, pk=self.kwargs.get('application_id'))

@@ -87,6 +87,8 @@
         ......
     {% endif %}
     <br>
+    <a href="{% url 'edit_application' application.id %}?next={{ request.path }}" class="btn btn-primary">Edit</a>
+    <br>
     ----------------------------------------------------------------------------------------
     <br>
     <!-- Button trigger modal -->
