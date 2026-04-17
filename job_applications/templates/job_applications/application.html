@@ -125,8 +125,9 @@
             {{ event.notes }}
         </div>
         <!-- Fix this later!!! Delete feature shouldnt be a 'raw' route.
-          It needs to be associated with an http request that isnt GET for safety-->
+          It needs to be associated with an http request that isnt GET for safety (the delete button on the home page too)-->
         <a href="{% url 'delete_event' application.id event.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'edit_event' application.id event.id %}" class="btn btn-primary">Edit</a>
     </div>
     {% endfor %}
 </body>
