@@ -1,7 +1,7 @@
 from django.forms import ModelForm, DateInput
 from .models import *
 
-class ApplicationRegisterForm(ModelForm):
+class ApplicationForm(ModelForm):
     class Meta:
         model = Application
         fields = ['company_name', 'role', 'vacancy_link', 'company_address','status', 'date_applied', 'notes', 'salary_min', 'salary_max', 'salary_period', 'currency', 'work_mode']
@@ -15,7 +15,7 @@ class ApplicationRegisterForm(ModelForm):
             'work_mode': 'Optional'
         }
 
-class AddEventForm(ModelForm):
+class EventForm(ModelForm):
     class Meta:
         model = ApplicationEvent
         fields = ["event_type", "notes", "event_date"]

@@ -8,6 +8,7 @@ urlpatterns = [
     path('application/<int:application_id>/delete/', delete_application, name='delete_application'),
     path('application/<int:application_id>/edit/', EditApplicationView.as_view(), name='edit_application'),
 
-    path('application/<int:application_id>/event/add/', add_event, name='add_event'),
+    path('application/<int:application_id>/event/add/', add_application_event, name='add_event'),
     path('application/<int:application_id>/event/<int:event_id>/delete/', delete_application_event, name="delete_event"),
+    path('application/<int:application_id>/event/<int:event_id>/edit/', edit_application_event, name="edit_event")
 ]

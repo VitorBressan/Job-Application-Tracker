@@ -17,7 +17,7 @@ def home(request):
     return render(request, "job_applications/home.html", context=data)
 
 class AddApplicationView(CreateView):
-    form_class = ApplicationRegisterForm
+    form_class = ApplicationForm
     template_name = 'job_applications/add_application.html'
     success_url = reverse_lazy('home')
 
@@ -32,7 +32,7 @@ def delete_application(request, application_id: int):
     return redirect('home')
 
 class EditApplicationView(UpdateView):
-    form_class = ApplicationRegisterForm
+    form_class = ApplicationForm
     template_name = 'job_applications/edit_application.html'
 
     def get_success_url(self):
@@ -43,10 +43,11 @@ class EditApplicationView(UpdateView):
 
     def get_object(self):
         return get_object_or_404(Application, pk=self.kwargs.get('application_id'))
+    
 
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
-    event_form = AddEventForm()
+    event_form = EventForm()
     events = ApplicationEvent.objects.filter(application_id = application.pk).order_by("-event_date", "-id")
     
     data = {
@@ -56,14 +57,21 @@ def application_details(request, application_id: int):
     }
     return render(request, "job_applications/application.html", context=data)
 
-def add_event(request, application_id: int):
-    application = get_object_or_404(Application, id=application_id)
+def add_application_event(request, application_id: int):
     if request.method == "POST":
-        form = AddEventForm(request.POST)
+        form = EventForm(request.POST)
         if form.is_valid():
-            event = form.save(commit=False)
-            event.application = application
+            event = form.save(commit=False) 
+            event.application = get_object_or_404(Application, id=application_id)
             event.save()
+    return redirect('application', application_id=application_id)
+
+def edit_application_event(request, application_id: int, event_id: int):
+    event = get_object_or_404(ApplicationEvent, pk=event_id)
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form = form.save()
     return redirect('application', application_id=application_id)
 
 def delete_application_event(request, application_id: int, event_id: int):
