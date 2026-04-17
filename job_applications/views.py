@@ -1,8 +1,9 @@
+from django.db.models.query import QuerySet
 from django.forms import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from .models import *
 from django.urls import reverse_lazy
 from .forms import *
@@ -24,7 +25,19 @@ class AddApplicationView(CreateView):
         application_object = form.save(commit=False)
         application_object.user = self.request.user
         application_object.save()
-        return super().form_valid(form) 
+        return super().form_valid(form)
+    
+def delete_application(request, application_id: int):
+    Application.objects.get(id=application_id).delete()
+    return redirect('home')
+
+class EditApplicationView(UpdateView):
+    form_class = ApplicationRegisterForm
+    template_name = 'job_applications/edit_application.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self):
+        return get_object_or_404(Application, pk=self.kwargs.get('application_id'))
 
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
@@ -48,10 +61,7 @@ def add_event(request, application_id: int):
             event.save()
     return redirect('application', application_id=application_id)
 
-def delete_application(request, application_id: int):
-    Application.objects.get(id=application_id).delete()
-    return redirect('home')
-
 def delete_application_event(request, application_id: int, event_id: int):
     ApplicationEvent.objects.get(id=event_id).delete()
     return redirect('application', application_id=application_id)
+
