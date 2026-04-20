@@ -1,0 +1,21 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Application</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <form method="POST" action="{% url 'edit_application' application.id %}?next={{ request.GET.next }}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-success">Confirm</button>
+        {% url 'home' as home_url %}
+        <a href="{{ request.GET.next|default:home_url }}" class="btn btn-primary">Cancel</a>
+    </form>
+</body>
+</html>
