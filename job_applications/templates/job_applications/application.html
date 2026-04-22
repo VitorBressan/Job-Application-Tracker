@@ -132,9 +132,23 @@
             Edit
         </button>
 
-        <!-- Fix this later!!! Delete feature shouldnt be a 'raw' route.
-          It needs to be associated with an http request that isnt GET for safety (the delete button on the home page too)-->
-        <a href="{% url 'delete_event' application.id event.id %}" class="btn btn-danger">Delete</a>
+        <button data-bs-target="#deleteApplicationEventModal{{event.id}}" data-bs-toggle="modal" class="btn btn-danger">Delete</button>
+        <div id="deleteApplicationEventModal{{event.id}}" class="modal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <p>Are you sure you want to delete this event?</p>
+              </div>
+              <div class="modal-footer">
+                <form method="POST", action="{% url 'delete_event' application.id event.id %}">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="modal fade" id="editModal{{ event.id }}" tabindex="-1" aria-hidden="true">

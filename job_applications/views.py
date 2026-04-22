@@ -8,6 +8,7 @@ from .models import *
 from django.urls import reverse_lazy, reverse
 from .forms import *
 
+
 @login_required
 def home(request):
     applications = Application.objects.filter(user = request.user)
@@ -28,7 +29,8 @@ class AddApplicationView(CreateView):
         return super().form_valid(form)
     
 def delete_application(request, application_id: int):
-    Application.objects.get(id=application_id).delete()
+    if request.method == "POST":
+        get_object_or_404(Application, id=application_id).delete()
     return redirect('home')
 
 class EditApplicationView(UpdateView):
@@ -75,6 +77,7 @@ def edit_application_event(request, application_id: int, event_id: int):
     return redirect('application', application_id=application_id)
 
 def delete_application_event(request, application_id: int, event_id: int):
-    ApplicationEvent.objects.get(id=event_id).delete()
+    if request.method == "POST":
+        get_object_or_404(ApplicationEvent, id=event_id).delete()
     return redirect('application', application_id=application_id)
 

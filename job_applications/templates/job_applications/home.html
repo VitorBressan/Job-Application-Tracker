@@ -1,5 +1,4 @@
 {% load bootstrap5 %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +48,23 @@
             <div>{{ application.notes }}</div>
         </a>
         <div class="d-flex flex-column">
-            <a href="{% url 'delete_application' application.id %}" class="btn btn-danger">Delete</a>
+            <button data-bs-target="#deleteApplicationModal{{application.id}}" data-bs-toggle="modal" class="btn btn-danger">Delete</button>
+            <div id="deleteApplicationModal{{application.id}}" class="modal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete this application?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <form method="POST", action="{% url 'delete_application' application.id %}">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             <a href="{% url 'edit_application' application.id %}" class="btn btn-primary">Edit</a>
         </div>
     </div>
