@@ -11,9 +11,17 @@ from .forms import *
 
 @login_required
 def home(request):
-    applications = Application.objects.filter(user = request.user)
+    search_query = request.GET.get('search')
+    if search_query:
+        applications = Application.objects.filter(
+            company_name__icontains=search_query,
+            user = request.user
+        )
+    else:
+        applications = Application.objects.filter(user = request.user)
+
     data = {
-        "applications_list": applications
+        "applications_list": applications,
     }
     return render(request, "job_applications/home.html", context=data)
 
