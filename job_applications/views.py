@@ -30,7 +30,7 @@ class AddApplicationView(CreateView):
     
 def delete_application(request, application_id: int):
     if request.method == "POST":
-        Application.objects.get(id=application_id).delete()
+        get_object_or_404(Application, id=application_id).delete()
     return redirect('home')
 
 class EditApplicationView(UpdateView):
@@ -77,6 +77,7 @@ def edit_application_event(request, application_id: int, event_id: int):
     return redirect('application', application_id=application_id)
 
 def delete_application_event(request, application_id: int, event_id: int):
-    ApplicationEvent.objects.get(id=event_id).delete()
+    if request.method == "POST":
+        get_object_or_404(ApplicationEvent, id=event_id).delete()
     return redirect('application', application_id=application_id)
 
