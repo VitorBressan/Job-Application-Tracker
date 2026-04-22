@@ -20,6 +20,14 @@ def home(request):
     else:
         applications = Application.objects.filter(user = request.user)
 
+    status = request.GET.get('status')
+    if status:
+        applications = applications.filter(status=status)
+
+    sort_by = request.GET.get('sort')
+    if sort_by:
+        applications = applications.order_by('date_applied' if sort_by == 'oldest' else '-date_applied')
+
     data = {
         "applications_list": applications,
     }

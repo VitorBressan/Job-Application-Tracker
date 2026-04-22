@@ -12,24 +12,26 @@
     <a href="{% url 'welcome' %}">Auth Page</a>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Filter
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Latest</a></li>
-                <li><a class="dropdown-item" href="#">Oldest</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Placeholder</a></li>
-            </ul>
-            </li>
-        </ul>
+        <div class="navbar-collapse justify-content-center">
         
-        <form method="GET" action="{% url 'home' %}" class="d-flex" role="search" style="width: 700px;">
-            <input name="search" class="form-control me-2" type="search" value="{{ request.GET.search }}" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success " type="submit">Search</button>
+        <form method="GET" action="{% url 'home' %}" class="d-flex" role="search" style="width: 1100px;">
+            <select name="status" class="form-select" style="width: 140px;" onchange="this.form.submit()">
+                <option value="">All Statuses</option>
+                <option value="APPLIED" {% if request.GET.status == 'APPLIED' %}selected{% endif %}>Applied</option>
+                <option value="ACCEPTED" {% if request.GET.status == 'ACCEPTED' %}selected{% endif %}>Accepted</option>
+                <option value="GHOSTED" {% if request.GET.status == 'GHOSTED' %}selected{% endif %}>Ghosted</option>
+                <option value="IN PROCESS" {% if request.GET.status == 'IN PROCESS' %}selected{% endif %}>In Process</option>
+                <option value="OFFERED" {% if request.GET.status == 'OFFERED' %}selected{% endif %}>Offered</option>
+                <option value="REJECTED" {% if request.GET.status == 'REJECTED' %}selected{% endif %}>Rejected</option>
+            </select>
+        
+            <select name="sort" class="form-select" style="width: 110px;" onchange="this.form.submit()">
+                <option value="latest" {% if request.GET.sort == 'latest' %}selected{% endif %}>Latest</option>
+                <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>Oldest</option>
+            </select>
+
+            <input name="search" class="form-control flex-grow-1" type="search" value="{{ request.GET.search }}" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         </div>
     </div>
