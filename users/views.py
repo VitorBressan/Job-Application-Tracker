@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import UserRegisterForm
@@ -19,4 +18,4 @@ class RegisterView(CreateView):
 
 class UserLoginView(LoginView):
     template_name = "users/login.html"
-    next_page = reverse_lazy('home')
+    next_page = reverse_lazy('home') # type: ignore

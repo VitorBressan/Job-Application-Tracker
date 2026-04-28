@@ -6,6 +6,7 @@
 {% block content %}
     <div class="d-grid gap-2">
         {% if user.is_authenticated %}
+        <a href="{% url 'home' %}" class="btn btn-primary">HOME PAGE</a>
         <form class="d-grid" method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">LOGOUT</button>
