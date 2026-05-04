@@ -10,12 +10,14 @@
     {% bootstrap_javascript %}
 </head>
 <body>
+    {% load crispy_forms_tags %}
     <form method="POST" action="{% url 'edit_application' application.id %}?next={{ request.GET.next }}">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="btn btn-success">Confirm</button>
+        {{ form|crispy }}
+        
         {% url 'home' as home_url %}
         <a href="{{ request.GET.next|default:home_url }}" class="btn btn-primary">Cancel</a>
+        <button type="submit" class="btn btn-success">Confirm</button>
     </form>
 </body>
 </html>
