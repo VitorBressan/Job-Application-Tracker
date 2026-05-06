@@ -2,15 +2,17 @@ from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
+from django.views.generic import UpdateView
 from django.urls import reverse_lazy
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserChangeEmailForm
+from django.shortcuts import get_object_or_404
 
-# Create your views here.
+User = get_user_model()
+
 def welcome_view(request):
     return render(request, 'users/welcome.html')
 
-User = get_user_model()
-class RegisterView(CreateView):
+class UserRegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = "users/sign_up.html"
     success_url = reverse_lazy('login')
@@ -19,3 +21,12 @@ class RegisterView(CreateView):
 class UserLoginView(LoginView):
     template_name = "users/login.html"
     next_page = reverse_lazy('home') # type: ignore
+
+class UserChangeEmailView(UpdateView):
+    form_class = UserChangeEmailForm
+    template_name = "users/change_email.html"
+    success_url = reverse_lazy('home')
+
+    def get_object(self):
+        return get_object_or_404(User, pk=self.request.user.pk)
+    

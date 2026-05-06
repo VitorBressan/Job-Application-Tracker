@@ -34,6 +34,7 @@ def home(request):
     }
     return render(request, "job_applications/home.html", context=data)
 
+# Application
 class AddApplicationView(CreateView):
     form_class = ApplicationForm
     template_name = 'job_applications/add_application.html'
@@ -72,7 +73,6 @@ class EditApplicationView(UpdateView):
         return get_object_or_404(Application, pk=self.kwargs.get('application_id'))
     
     
-
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
     event_form = EventForm()
@@ -84,6 +84,8 @@ def application_details(request, application_id: int):
         "events": events,
     }
     return render(request, "job_applications/application.html", context=data)
+
+# Application Events
 
 def add_application_event(request, application_id: int):
     if request.method == "POST":

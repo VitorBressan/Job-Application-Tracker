@@ -103,4 +103,5 @@ class EventForm(ModelForm):
             'event_date': DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
         
+    
         

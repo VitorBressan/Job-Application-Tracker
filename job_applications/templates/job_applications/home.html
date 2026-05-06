@@ -60,6 +60,18 @@
                     <li class="dropdown-header">{{ request.user.email }}</li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
+                        <form method="POST" action="{% url 'change_email' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Change Email</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form method="POST" action="{% url 'change_password' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Change Password</button>
+                        </form>
+                    </li>
+                    <li>
                         <form method="POST" action="{% url 'logout' %}">
                             {% csrf_token %}
                             <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
