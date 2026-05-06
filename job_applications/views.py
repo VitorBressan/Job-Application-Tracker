@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.db.models.query import QuerySet
 from django.forms import BaseModelForm
 from django.http import HttpResponse
@@ -52,14 +54,23 @@ class EditApplicationView(UpdateView):
     form_class = ApplicationForm
     template_name = 'job_applications/edit_application.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'application_id': self.kwargs.get('application_id'),
+            'next': self.request.GET.get('next')
+        })
+        return kwargs
+
     def get_success_url(self):
-        next_url= self.request.GET.get('next')
+        next_url = self.request.GET.get('next')
         if next_url:
             return next_url
         return reverse('home')
 
     def get_object(self):
         return get_object_or_404(Application, pk=self.kwargs.get('application_id'))
+    
     
 
 def application_details(request, application_id: int):

@@ -23,14 +23,16 @@ class ApplicationForm(ModelForm):
         self.helper = FormHelper()
         if app_id:
             action_url = reverse('edit_application', args=[app_id])
-            if next_url:
+        else:
+            action_url = reverse('add_application')
+        if next_url:
                 action_url += f"?next={next_url}"
-            self.helper.form_action = action_url
+
+        self.helper.form_action = action_url
         
         self.helper.form_method = 'POST'
-        self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            # Section: Main Details
+            # Main Details
             Row(
                 Column('company_name', css_class='form-group col-md-6 mb-3'),
                 Column('role', css_class='form-group col-md-6 mb-3'),
@@ -41,7 +43,6 @@ class ApplicationForm(ModelForm):
                 Column('status', css_class='form-group col-md-4 mb-3'),
             ),
 
-            # Section: Logistics
             Row(
                 Column('work_mode', css_class='form-group col-md-4 mb-3'),
                 Column('contract_type', css_class='form-group col-md-4 mb-3'),
@@ -50,11 +51,11 @@ class ApplicationForm(ModelForm):
 
             'company_address',
 
-            # Section: Text Areas
+            # Text Areas
             'vacancy_description',
             'notes',
 
-            # Section: Salary (All in one row!)
+            # Salary
             HTML('<h6 class="fw-bold mt-3 mb-2">Salary Information</h6>'),
             Row(
                 Column('salary_min', css_class='form-group col-md-3 mb-3'),
@@ -75,8 +76,7 @@ class ApplicationForm(ModelForm):
                 # The Submit Button
                 Submit('submit', 'Save Application', css_class='btn btn-primary px-4 rounded-pill'),
 
-                css_class="d-flex justify-content-between mt-4" # This pushes them to opposite sides
-                # Use "justify-content-end gap-2" if you want them both on the right side
+                css_class="d-flex justify-content-end gap-2" 
             )
         )
         
@@ -86,7 +86,7 @@ class ApplicationForm(ModelForm):
         self.fields['salary_min'].widget.attrs.update({'placeholder': 'e.g. 5000 (Optional)'})
         self.fields['salary_max'].widget.attrs.update({'placeholder': 'e.g. 7000 (Optional)'})
         self.fields['vacancy_description'].widget.attrs.update({
-            'placeholder': 'Copy and paste the vacancy description here... (Optional)'
+            'placeholder': 'Copy and paste the vacancy description here...'
         })
 
         # "Optional" on every field that isn't required automatically:
