@@ -1,21 +1,99 @@
 from django.forms import ModelForm, DateInput
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Submit, HTML, Div
+from django.urls import reverse
 from .models import *
 
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = ['company_name', 'role', 'vacancy_link', 'status', 'vacancy_description','work_mode', 'contract_type', 'company_address', 'date_applied', 'notes', 'salary_min', 'salary_max', 'salary_period', 'currency', ]
-        help_texts = {
-            'company_address': 'Optional',
-            'notes': 'Optional',
-            'salary_min': 'Fill min and max salary with the same amount if the salary is fix (Optional)',
-            'salary_max': 'Fill min and max salary with the same amount if the salary is fix (Optional)',
-            'salary_period': 'Optional',
-            'currency': 'Optional',
-            'work_mode': 'Optional',
-            'contract_type': 'Optional',
-            'vacancy_description': 'Copy and paste de vacancy description here (Optional)'
-        }
+        fields = [
+            'company_name', 'role', 'vacancy_link', 'status', 
+            'vacancy_description', 'work_mode', 'contract_type', 
+            'company_address', 'date_applied', 'notes', 
+            'salary_min', 'salary_max', 'salary_period', 'currency'
+        ]
+
+    def __init__(self, *args, **kwargs):
+
+        app_id = kwargs.pop('application_id', None)
+        next_url = kwargs.pop('next', None)
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        if app_id:
+            action_url = reverse('edit_application', args=[app_id])
+            if next_url:
+                action_url += f"?next={next_url}"
+            self.helper.form_action = action_url
+        
+        self.helper.form_method = 'POST'
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            # Section: Main Details
+            Row(
+                Column('company_name', css_class='form-group col-md-6 mb-3'),
+                Column('role', css_class='form-group col-md-6 mb-3'),
+            ),
+            
+            Row(
+                Column('vacancy_link', css_class='form-group col-md-8 mb-3'),
+                Column('status', css_class='form-group col-md-4 mb-3'),
+            ),
+
+            # Section: Logistics
+            Row(
+                Column('work_mode', css_class='form-group col-md-4 mb-3'),
+                Column('contract_type', css_class='form-group col-md-4 mb-3'),
+                Column('date_applied', css_class='form-group col-md-4 mb-3'),
+            ),
+
+            'company_address',
+
+            # Section: Text Areas
+            'vacancy_description',
+            'notes',
+
+            # Section: Salary (All in one row!)
+            HTML('<h6 class="fw-bold mt-3 mb-2">Salary Information</h6>'),
+            Row(
+                Column('salary_min', css_class='form-group col-md-3 mb-3'),
+                Column('salary_max', css_class='form-group col-md-3 mb-3'),
+                Column('currency', css_class='form-group col-md-3 mb-3'),
+                Column('salary_period', css_class='form-group col-md-3 mb-3'),
+            ),
+
+            # Buttons
+            Div(
+                # The Cancel Button
+                HTML(f"""
+                    <a href="{next_url or reverse('home')}" 
+                       class="btn btn-outline-secondary px-4 rounded-pill">
+                       Cancel
+                    </a>
+                """),
+                # The Submit Button
+                Submit('submit', 'Save Application', css_class='btn btn-primary px-4 rounded-pill'),
+
+                css_class="d-flex justify-content-between mt-4" # This pushes them to opposite sides
+                # Use "justify-content-end gap-2" if you want them both on the right side
+            )
+        )
+        
+        self.fields['vacancy_description'].widget.attrs.update({'rows': '4'})
+        self.fields['notes'].widget.attrs.update({'rows': '3'})
+
+        self.fields['salary_min'].widget.attrs.update({'placeholder': 'e.g. 5000 (Optional)'})
+        self.fields['salary_max'].widget.attrs.update({'placeholder': 'e.g. 7000 (Optional)'})
+        self.fields['vacancy_description'].widget.attrs.update({
+            'placeholder': 'Copy and paste the vacancy description here... (Optional)'
+        })
+
+        # "Optional" on every field that isn't required automatically:
+        for field_name, field in self.fields.items():
+            if not field.required and 'placeholder' not in field.widget.attrs:
+                field.widget.attrs['placeholder'] = 'Optional'
+
 
 class EventForm(ModelForm):
     class Meta:

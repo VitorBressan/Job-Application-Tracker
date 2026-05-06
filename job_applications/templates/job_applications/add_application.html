@@ -9,8 +9,7 @@
     {% load crispy_forms_tags %}
     <form method="POST" action="{% url 'add_application' %}">
         {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" value="submit">
-    </form>
+        {% crispy form %}
+
 </body>
 </html>
