@@ -9,8 +9,14 @@
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <div class="text-center">
-            <input type="submit" class="btn btn-primary" value="Log In">
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <a href="{% url 'welcome' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                Cancel
+            </a>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                Log In
+            </button>
         </div>
     </form>
 

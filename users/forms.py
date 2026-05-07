@@ -47,7 +47,7 @@ class UserChangeEmailForm(ModelForm):
                 # Submit Button
                 Submit('submit', 'Update Email', css_class='btn btn-primary px-4 rounded-pill shadow-sm'),
 
-                css_class="d-flex justify-content-between mt-2"
+                css_class="d-flex justify-content-end gap-2 mt-2"
             )
         )
         
