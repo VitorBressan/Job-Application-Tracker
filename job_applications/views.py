@@ -5,6 +5,7 @@ from django.forms import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView
 from .models import *
 from django.urls import reverse_lazy, reverse
