@@ -21,3 +21,7 @@
     box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4); /* Blue glow */
     background: linear-gradient(45deg, #0b5ed7, #003584);
 }
+
+body {
+    background-color: #eef2f7 !important; 
+}
