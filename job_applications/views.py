@@ -1,11 +1,6 @@
-from typing import Any
-
-from django.db.models.query import QuerySet
-from django.forms import BaseModelForm
-from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView
 from .models import *
 from django.urls import reverse_lazy, reverse
@@ -36,7 +31,7 @@ def home(request):
     return render(request, "job_applications/home.html", context=data)
 
 # Application
-class AddApplicationView(CreateView):
+class AddApplicationView(LoginRequiredMixin, CreateView):
     form_class = ApplicationForm
     template_name = 'job_applications/add_application.html'
     success_url = reverse_lazy('home')
@@ -46,13 +41,14 @@ class AddApplicationView(CreateView):
         application_object.user = self.request.user
         application_object.save()
         return super().form_valid(form)
-    
+
+@login_required
 def delete_application(request, application_id: int):
     if request.method == "POST":
         get_object_or_404(Application, id=application_id).delete()
     return redirect('home')
 
-class EditApplicationView(UpdateView):
+class EditApplicationView(LoginRequiredMixin, UpdateView):
     form_class = ApplicationForm
     template_name = 'job_applications/edit_application.html'
 
@@ -73,7 +69,8 @@ class EditApplicationView(UpdateView):
     def get_object(self):
         return get_object_or_404(Application, pk=self.kwargs.get('application_id'))
     
-    
+
+@login_required
 def application_details(request, application_id: int):
     application = get_object_or_404(Application, id=application_id)
     event_form = EventForm()
@@ -87,7 +84,7 @@ def application_details(request, application_id: int):
     return render(request, "job_applications/application.html", context=data)
 
 # Application Events
-
+@login_required
 def add_application_event(request, application_id: int):
     if request.method == "POST":
         form = EventForm(request.POST)
@@ -97,6 +94,7 @@ def add_application_event(request, application_id: int):
             event.save()
     return redirect('application', application_id=application_id)
 
+@login_required
 def edit_application_event(request, application_id: int, event_id: int):
     event = get_object_or_404(ApplicationEvent, pk=event_id)
     if request.method == "POST":
@@ -105,6 +103,7 @@ def edit_application_event(request, application_id: int, event_id: int):
             form = form.save()
     return redirect('application', application_id=application_id)
 
+@login_required
 def delete_application_event(request, application_id: int, event_id: int):
     if request.method == "POST":
         get_object_or_404(ApplicationEvent, id=event_id).delete()
